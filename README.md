@@ -1,4 +1,4 @@
-# Classhole: A Natural Language Classifier for the Frustrated Moral Philosopher in All of Us
+# Classhole:  A natural language classifier for the moral philosipher in all of us
 
 #### Group members
 Declan Bradley, Muriel Moon, Ha Nguyen, Natalie Frank
