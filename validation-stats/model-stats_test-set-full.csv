@@ -1,0 +1,12 @@
+model,accuracy_rate
+../model/ahole-model_unbalanced_3-epochs.keras,0.6036053251799478
+../model/ahole-model_balanced_6-epochs.keras,0.5057328492260653
+../model/ahole-model_unbalanced_20-epochs.keras,0.5887954646792789
+../model/ahole-model_balanced_12-epochs.keras,0.5060831900121027
+../model/ahole-model_unbalanced_10-epochs.keras,0.609210777756545
+../model/ahole-model_balanced_10-epochs.keras,0.5011784190075801
+../model/ahole-model_unbalanced_12-epochs.keras,0.6046881967004267
+../model/ahole-model_balanced_20-epochs.keras,0.5089496146251353
+../model/ahole-model_balanced_3-epochs.keras,0.508535575514364
+../model/ahole-model_balanced_6-epochs_.keras,0.4982801452321804
+../model/ahole-model_unbalanced_6-epochs.keras,0.6069176380661189

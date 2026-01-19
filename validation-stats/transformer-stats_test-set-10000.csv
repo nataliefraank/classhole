@@ -1,0 +1,10 @@
+model,accuracy_rate
+../model/transformer_balanced_3-epochs.keras,0.4971
+../model/transformer_unbalanced_6-epochs.keras,0.4729
+../model/transformer_balanced_10-epochs.keras,0.4994
+../model/transformer_unbalanced_10-epochs.keras,0.4653
+../model/transformer_balanced_20-epochs.keras,0.4958
+../model/transformer_balanced_12-epochs.keras,0.4981
+../model/transformer_unbalanced_3-epochs.keras,0.4687
+../model/transformer_unbalanced_12-epochs.keras,0.4562
+../model/transformer_balanced_6-epochs.keras,0.4919

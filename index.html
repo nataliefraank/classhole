@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<head>
+    <title>Classhole</title>
+    <script src="https://kit.fontawesome.com/bb1d08a9b2.js" crossorigin="anonymous"></script>
+    <style>
+        .main-content {
+            margin: auto;
+            margin-left: 550px;
+            max-width: 800px;
+            margin-top: 70px;
+        }
+
+        .big-number {
+            text-align: center;
+            font-weight: bold;
+            font-size: 5em;
+        }
+
+        #scenario-input {
+            width: calc(100% - 5px);
+            height: 300px;
+            margin-bottom: 20px;
+            min-height: 100px;
+            padding-top: 10px;
+        }
+
+        #judge-button {
+            margin: auto;
+            font-size: 1.1em;
+            width: 100%;
+            text-transform: uppercase;
+            background-color: darkblue;
+            color: white;
+            font-weight: bold;
+            border: none;
+            padding: 10px;
+            border-radius: 20px;
+            box-sizing: border-box;
+            border: 4px solid darkblue;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        #judge-button:hover {
+            color: darkblue;
+            background-color: white;
+            border: 4px solid darkblue;
+
+        }
+
+        .button-wrapper {
+            width: 160px;
+            margin: auto;
+        }
+
+        .judgement {
+            background-color: black;
+            color: white;
+            font-weight: bold;
+            width: fit-content;
+            margin: auto;
+            padding: 10px;
+            padding-left: 20px;
+            padding-right: 20px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border-radius: 20px;
+        }
+
+        .header-line {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 1.5em;
+        }
+
+        .info-box {
+            position: absolute;
+            box-shadow: 0 1px 5px #666;
+            margin-left: 10px;
+            width: 400px;
+            border-radius: 20px;
+            padding: 20px;
+            top: 30px;
+        }
+
+        li {
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        function incrementCounter(curr, max, data) {
+            if (curr <= max) {
+                var delay = ((max - (max - curr)) ** 2) / 5
+                odds = curr / 1;
+                $('#percent').text(odds);
+
+                if (curr % 2 == 0) {
+                    $('#scale-icon').attr('class', 'fa-solid fa-scale-unbalanced')
+                } else {
+                    $('#scale-icon').attr('class', 'fa-solid fa-scale-unbalanced-flip')
+                }
+
+                $('.judgement').text(".".repeat((curr % 3) + 1));
+
+                setTimeout(function() {
+                    incrementCounter(curr + 1, max, data)
+                }, delay);
+            } else {
+                if (max >= 50) {
+                    $('.big-number').css('color', 'red');
+                    $('.judgement').css('background-color', 'red');
+                } else {
+                    $('.big-number').css('color', 'blue');
+                    $('.judgement').css('background-color', 'blue');
+                }
+                $('#scale-icon').attr('class', 'fa-solid fa-scale-balanced')
+                $('.judgement').text(data['label'])
+            }
+        }
+
+        $(function() {
+            $('#judge-button').on('click', function() {
+                $('.big-number').css('color', 'black');
+                $('.judgement').css('background-color', 'black');
+                var query = 'http://127.0.0.1:5000/predict?q=' + $('#scenario-input').val();
+                
+                $.getJSON(query, 
+                    function(data) {
+                        console.log(data)
+                        var odds_counter = data['raw_odds'] * 100;
+                        odds_counter = Math.round(odds_counter);
+                        incrementCounter(0, odds_counter, data);
+                    }
+                )
+        })
+
+    })
+    </script>
+</head>
+<body>
+    <div class="info-box">
+        <div class="header-line">Classhole <i class="fa-solid fa-circle-info"></i></div>
+        <p><b>What is Classhole?</b></p>
+        <p>Classhole is a course capstone project developed by a group of Computer Science students at Oberlin College. It is a portmanteau
+            of the words "natural language classifier" and "asshole", and also an XKCD joke.</p>
+        <p>This webpage serves as an interface to a machine learning system trained on the text corpus of the forum r/AmItheAsshole,
+            where users describe their choices and receive moral judgements in return. Based on its (ineffable)
+            statistical analysis of how humans talk about social situations, it will take your confession and pass a ruling: either The Asshole (TA) or
+            Not The Asshole (NTA).
+        </p>
+        <p><b>Possible applications and extensions:</b></p>
+        <ul>
+            <li>It is easier to vent to an unfeeling robot than to a human who might actually judge you.</li>
+            <li>Classhole does not make ethical judgements. Classhole is a big pile of linear algebra with no concept of ethics. 
+                Its rulings are based purely on the semantic content of your language. Therefore, if your email / resume / cover letter / etc receives a judgement of Asshole,
+                it may come across to other humans in the same way. Consider revising.</li>
+            <li>This is a student project and its applications are few, we just think it's cool.</li>
+        </ul>
+        
+
+    </div>
+    <div class="main-content">
+        <div class="big-number"><span id="percent">0</span>%</div>
+        <div class="judgement">Are you the a*hole?</div>
+        <textarea name="text" rows="14" cols="10" wrap="soft" id="scenario-input"> </textarea>
+        <div class="button-wrapper">
+            <button id="judge-button">Judge Me <i id="scale-icon" class="fa-solid fa-scale-balanced"></i></button>
+        </div>
+    </div>
+</body>
